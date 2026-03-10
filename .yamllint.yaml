@@ -1,0 +1,6 @@
+extends: default
+rules:
+  line-length:
+    max: 200          # shell commands in late-commands can't reasonably fit in 80 chars
+  document-start: disable   # #cloud-config serves as the document marker
+  comments: disable             # #cloud-config is a magic string, can't add a space after #
