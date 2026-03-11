@@ -3,7 +3,7 @@ autoinstall:
   version: 1
 
   # ── Locale & keyboard ────────────────────────────────────────────────────────
-  locale: en_US.UTF-8
+  locale: en_GB.UTF-8
   keyboard:
     layout: se
 
@@ -26,9 +26,9 @@ autoinstall:
     hostname: homelab
     username: axel
     # Password auth is disabled — SSH key only. This is a valid SHA-512 hash
-    # of a placeholder value; it is never used to log in.
-    # To generate your own: openssl passwd -6 'yourpassword'
-    password: "$6$HEsRYYDh9P8vIQGC$.o.getr1YykK1FcAgEp4AWD9OSR/dcAm9AGl2O1pGf3wcIRCRJdVe3F6q2TD3kM58VzAh6FnzQGmwy0N9LDej."
+    # of a placeholder value ('ubuntu'); it is never used to log in.
+    # To generate your own: openssl passwd -6 'ubuntu'
+    password: "$6$BNs0mqcbJ.UQEMxu$J4COn7WO8OHTI0QndyE2HsUBmfuRIcTa19cHYLeP1QT7Bujkk1pyMFfWDRzFSZSMZhZF7yqtt6OKo8LNex/zl."
 
   # ── SSH ───────────────────────────────────────────────────────────────────────
   ssh:
