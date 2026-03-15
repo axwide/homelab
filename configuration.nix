@@ -57,6 +57,7 @@
     config = {
       user.name = "axwide";
       user.email = "your@email.com";
+      credential.helper = "store";
     };
   };
 
