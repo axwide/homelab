@@ -3,6 +3,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  nix.settings.experimental-features = [ "nix-flakes" "nix-command" ];
+
   # ── Bootloader (UEFI) ─────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
