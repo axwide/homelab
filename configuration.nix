@@ -7,11 +7,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # ── Fix Realtek RTL8111/8168 NIC driver conflict ──────────────────────────
-  # Replaces the r8169 workaround you do post-install on Ubuntu
-  # boot.extraModulePackages = [ config.boot.kernelPackages.r8168 ];
-  # boot.blacklistedKernelModules = [ "r8169" ];
-
   # ── Networking ────────────────────────────────────────────────────────────
   networking.hostName = "homelab";
   networking.interfaces.enp1s0.useDHCP = true;
@@ -31,6 +26,14 @@
     ];
   };
 
+  # Disable password request on sudo use
+  security.sudo.extraRules = [
+    {
+      users = [ "axel" ];
+      commands = [{ command = "ALL"; options = [ "NOPASSWD" ]; }];
+    }
+  ];
+
   # ── SSH ───────────────────────────────────────────────────────────────────
   services.openssh = {
     enable = true;
@@ -47,20 +50,18 @@
   };
 
   # ── Lid-close behavior (headless) ─────────────────────────────────────────
-  services.logind = {
-    lidSwitch = "ignore";
-    lidSwitchExternalPower = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
   };
 
   # ── Packages ──────────────────────────────────────────────────────────────
-  # No snapd to purge — it simply doesn't exist on NixOS
   environment.systemPackages = with pkgs; [
     git
     curl
     wget
-    ansible
     docker-compose  # standalone; docker compose (plugin) also works via docker itself
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 }
