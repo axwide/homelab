@@ -24,7 +24,7 @@
   # ── User ──────────────────────────────────────────────────────────────────
   users.users.axel = {
     isNormalUser = true;
-    extraGroups = [ "docker" "wheel"];
+    extraGroups = [ "docker" "wheel" "nordvpn"];
     hashedPassword = "!";  # disables password login entirely
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDeGSqnI7KQz5U5b9QiH3EZwOw2YEvsZDpOhyACOz+r homelab"
@@ -55,6 +55,17 @@
     enableOnBoot = true;
   };
 
+# -- NordVPN ----------------------------------------------------------------
+  systemd.services.nordvpnd = {
+    description = "NordVPN daemon";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.nordvpn}/bin/nordvpnd";
+      Restart = "always";
+    };
+  };
+
   # -- Git -------------------------------------------------------------------
   programs.git = {
     enable = true;
@@ -78,6 +89,7 @@
     wget
     docker-compose  # standalone; docker compose (plugin) also works via docker itself
     lazygit
+    nordvpn
   ];
 
   system.stateVersion = "25.11";
