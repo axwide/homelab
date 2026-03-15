@@ -5,6 +5,10 @@
 
   nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
+  environment.shellAliases = {
+    rebuild = "sudo nixos-rebuild switch --flake /home/axel/homelab#homelab";
+  };
+
   # ── Bootloader (UEFI) ─────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -73,6 +77,7 @@
     curl
     wget
     docker-compose  # standalone; docker compose (plugin) also works via docker itself
+    lazygit
   ];
 
   system.stateVersion = "25.11";
