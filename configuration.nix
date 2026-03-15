@@ -3,7 +3,7 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  nix.settings.experimental-features = [ "nix-flakes" "nix-command" ];
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
   # ── Bootloader (UEFI) ─────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
@@ -49,6 +49,15 @@
   virtualisation.docker = {
     enable = true;
     enableOnBoot = true;
+  };
+
+  # -- Git -------------------------------------------------------------------
+  programs.git = {
+    enable = true;
+    config = {
+      user.name = "axwide";
+      user.email = "your@email.com";
+    };
   };
 
   # ── Lid-close behavior (headless) ─────────────────────────────────────────
