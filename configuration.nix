@@ -24,7 +24,7 @@
   # ── User ──────────────────────────────────────────────────────────────────
   users.users.axel = {
     isNormalUser = true;
-    extraGroups = [ "docker" ];
+    extraGroups = [ "docker" "wheel"];
     hashedPassword = "!";  # disables password login entirely
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDeGSqnI7KQz5U5b9QiH3EZwOw2YEvsZDpOhyACOz+r homelab"
