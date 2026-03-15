@@ -55,8 +55,8 @@
   programs.git = {
     enable = true;
     config = {
-      user.name = "axwide";
-      user.email = "your@email.com";
+      user.name = "Axel";
+      user.email = "afgwidenfelt@gmail.com";
       credential.helper = "store";
     };
   };
