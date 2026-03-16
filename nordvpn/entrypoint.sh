@@ -11,13 +11,13 @@ if nordvpn account 2>&1 | grep -q "not logged in"; then
     nordvpn login --token "$NORDVPN_TOKEN"
 fi
 
-nordvpn connect
+nordvpn connect --group p2p
 nordvpn set meshnet on
 nordvpn meshnet set nickname "homelab-container"
 nordvpn set firewall on
 
 # Allow inbound traffic coming from over the LAN through the firewall
-nordvpn allowlist add subnet 192.168.2.0/24
+nordvpn set lan-discovery on
 
 # Monitor nordvpnd and restart if it crashes
 while true; do
