@@ -61,3 +61,7 @@ sudo reboot
 ```
 
 After rebooting, Ethernet should come up automatically.
+
+## NordVPN setup
+
+How to get WireGuard private key, [see this comment](https://github.com/qdm12/gluetun-wiki/issues/15#issuecomment-3187072155).
