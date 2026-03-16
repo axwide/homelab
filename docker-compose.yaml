@@ -17,6 +17,9 @@ services:
       - 8080:8080        # qbittorrent webui
       - 6881:6881        # qbittorrent torrenting
       - 6881:6881/udp    # qbittorrent torrenting udp
+      - 9696:9696        # prowlarr
+      - 7878:7878        # radarr
+      - 8989:8989        # sonarr
     restart: unless-stopped
 
   jellyfin:
@@ -26,6 +29,8 @@ services:
     volumes:
       - jellyfin_config:/config
       - jellyfin_cache:/cache
+      - /home/axel/media/movies:/movies:ro
+      - /home/axel/media/tv:/tv:ro
     restart: unless-stopped
 
   qbittorrent:
@@ -40,11 +45,53 @@ services:
       - TORRENTING_PORT=6881
     volumes:
       - qbittorrent_config:/config
-      - /home/axel/downloads:/downloads
+      - /home/axel/media:/data
     restart: unless-stopped
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    network_mode: service:nordvpn
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - prowlarr_config:/config
+    restart: unless-stopped
+
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    network_mode: service:nordvpn
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - radarr_config:/config
+      - /home/axel/media:/data
+    restart: unless-stopped
+
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    network_mode: service:nordvpn
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+    volumes:
+      - sonarr_config:/config
+      - /home/axel/media:/data
+    restart: unless-stopped
+
 
 volumes:
   nordvpn_data:
   jellyfin_config:
   jellyfin_cache:
   qbittorrent_config:
+  prowlarr_config:
+  radarr_config:
+  sonarr_config:

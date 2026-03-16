@@ -11,7 +11,8 @@
 
   # Set up folders
   systemd.tmpfiles.rules = [
-    "d /home/axel/downloads 0755 axel users -"
+    "d /home/axel/media/ 0755 axel users -"
+    "d /home/axel/media/downloads 0755 axel users -"
   ];
 
   # ── Bootloader (UEFI) ─────────────────────────────────────────────────────
