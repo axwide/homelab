@@ -86,6 +86,17 @@ services:
       - /home/axel/media:/data
     restart: unless-stopped
 
+  recyclarr:
+    image: ghcr.io/recyclarr/recyclarr:8
+    container_name: recyclarr
+    network_mode: service:nordvpn
+    user: 1000:1000
+    environment:
+      - TZ=Europe/Amsterdam
+      - CRON_SCHEDULE=@daily
+    volumes:
+      - ./recyclarr:/config
+    restart: unless-stopped
 
 volumes:
   nordvpn_data:
