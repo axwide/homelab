@@ -55,17 +55,6 @@
     enableOnBoot = true;
   };
 
-# -- NordVPN ----------------------------------------------------------------
-  systemd.services.nordvpnd = {
-    description = "NordVPN daemon";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStart = "${pkgs.nordvpn}/bin/nordvpnd";
-      Restart = "always";
-    };
-  };
-
   # -- Git -------------------------------------------------------------------
   programs.git = {
     enable = true;
@@ -87,9 +76,7 @@
     git
     curl
     wget
-    docker-compose  # standalone; docker compose (plugin) also works via docker itself
     lazygit
-    nordvpn
   ];
 
   system.stateVersion = "25.11";
