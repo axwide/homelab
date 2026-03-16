@@ -14,7 +14,7 @@ services:
       - nordvpn_data:/var/lib/nordvpn
     ports:
       - 8096:8096        # jellyfin
-      - 8080:8080        # qbittorrent webui
+      - 8181:8181        # qbittorrent webui
       - 6881:6881        # qbittorrent torrenting
       - 6881:6881/udp    # qbittorrent torrenting udp
       - 9696:9696        # prowlarr
@@ -41,7 +41,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Europe/Amsterdam
-      - WEBUI_PORT=8080
+      - WEBUI_PORT=8181
       - TORRENTING_PORT=6881
     volumes:
       - qbittorrent_config:/config
