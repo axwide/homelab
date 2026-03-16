@@ -12,7 +12,20 @@ services:
       - NORDVPN_TOKEN=${NORDVPN_TOKEN}
     volumes:
       - nordvpn_data:/var/lib/nordvpn
+    ports:
+      - 8096:8096
+    restart: unless-stopped
+
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    network_mode: service:nordvpn
+    volumes:
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
     restart: unless-stopped
 
 volumes:
   nordvpn_data:
+  jellyfin_config:
+  jellyfin_cache:
