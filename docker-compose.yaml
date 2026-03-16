@@ -13,7 +13,10 @@ services:
     volumes:
       - nordvpn_data:/var/lib/nordvpn
     ports:
-      - 8096:8096
+      - 8096:8096        # jellyfin
+      - 8080:8080        # qbittorrent webui
+      - 6881:6881        # qbittorrent torrenting
+      - 6881:6881/udp    # qbittorrent torrenting udp
     restart: unless-stopped
 
   jellyfin:
@@ -25,7 +28,23 @@ services:
       - jellyfin_cache:/cache
     restart: unless-stopped
 
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: service:nordvpn
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Amsterdam
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - qbittorrent_config:/config
+      - /home/axel/downloads:/downloads
+    restart: unless-stopped
+
 volumes:
   nordvpn_data:
   jellyfin_config:
   jellyfin_cache:
+  qbittorrent_config:

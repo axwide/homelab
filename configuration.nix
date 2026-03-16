@@ -9,6 +9,11 @@
     rebuild = "sudo nixos-rebuild switch --flake /home/axel/homelab#homelab";
   };
 
+  # Set up folders
+  systemd.tmpfiles.rules = [
+    "d /home/axel/downloads 0755 axel users -"
+  ];
+
   # ── Bootloader (UEFI) ─────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
