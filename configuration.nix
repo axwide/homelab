@@ -33,7 +33,7 @@
     extraGroups = [ "docker" "wheel"];
     hashedPassword = "!";  # disables password login entirely
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPDeGSqnI7KQz5U5b9QiH3EZwOw2YEvsZDpOhyACOz+r homelab"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID6ySHMxxYROXbTJL3H3sk2PDcAOoWBLxPVQ/EGU8kGU axel@desktop-wsl-202603"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZ3F0EBi3J2SVNEQToGaIh51r+uqbtU5u+0C0ljnKw2 axel@EST01110925-202603"
     ];
   };
