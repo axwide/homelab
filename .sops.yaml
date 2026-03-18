@@ -1,0 +1,7 @@
+keys:
+  - &homelab age150lcws35k5ch7ll8ztpc647pl6k2f3qrt85p0m2rz9ghxwacka0q2jwpxc
+creation_rules:
+  - path_regex: secrets\.yaml$
+    key_groups:
+      - age:
+          - *homelab

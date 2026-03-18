@@ -8,8 +8,8 @@ services:
       - net.ipv6.conf.all.disable_ipv6=0
     devices:
       - /dev/net/tun:/dev/net/tun
-    environment:
-      - NORDVPN_TOKEN=${NORDVPN_TOKEN}
+    env_file:
+      - /run/secrets/rendered/docker.env
     volumes:
       - nordvpn_data:/var/lib/nordvpn
     ports:
@@ -58,6 +58,15 @@ services:
       - TZ=Europe/Amsterdam
     volumes:
       - prowlarr_config:/config
+    restart: unless-stopped
+
+  solvearr:
+    image: nabilak/solvearr
+    container_name: solvearr
+    network_mode: service:nordvpn
+    environment:
+      - TZ=Europe/Amsterdam
+      - LOG_LEVEL=info
     restart: unless-stopped
 
   radarr:

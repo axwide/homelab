@@ -86,7 +86,29 @@
     curl
     wget
     lazygit
+    sops
+    age
   ];
+
+  # ── Secrets (sops-nix) ───────────────────────────────────────────────────
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+    secrets = {
+      nordvpn_token = {};
+      # future secrets go here
+    };
+
+    templates."docker.env" = {
+      owner = "axel";
+      content = ''
+        NORDVPN_TOKEN=${config.sops.placeholder.nordvpn_token}
+      '';
+    };
+  };
+
+  # ── Automatic updates ──────────────────────────────────────────────────────────────
 
   systemd.services.homelab-upgrade = {
     description = "Pull latest config from GitHub and rebuild";
