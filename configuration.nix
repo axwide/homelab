@@ -88,5 +88,25 @@
     lazygit
   ];
 
+  systemd.services.homelab-upgrade = {
+    description = "Pull latest config from GitHub and rebuild";
+    path = with pkgs; [ git nixos-rebuild nix ];
+    serviceConfig = {
+      Type = "oneshot";
+      User = "root";
+      WorkingDirectory = "/home/axel/homelab";
+      ExecStart = "${pkgs.bash}/bin/bash -c 'git -C /home/axel/homelab pull --ff-only && nixos-rebuild switch --flake /home/axel/homelab#homelab'";
+    };
+  };
+
+  systemd.timers.homelab-upgrade = {
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "Wed 06:00";  # after the GH Action has had time to run
+      Persistent = true;
+      RandomizedDelaySec = "30m";
+    };
+  };
+
   system.stateVersion = "25.11";
 }
