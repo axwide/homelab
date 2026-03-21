@@ -20,6 +20,12 @@ services:
       - 9696:9696        # prowlarr
       - 7878:7878        # radarr
       - 8989:8989        # sonarr
+    healthcheck:
+      test: ["CMD-SHELL", "nordvpn status | grep -q 'Status: Connected'"]
+      start_period: 45s
+      interval: 15s
+      timeout: 5s
+      retries: 5
     restart: unless-stopped
 
   jellyfin:
@@ -37,6 +43,9 @@ services:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     network_mode: service:nordvpn
+    depends_on:
+      nordvpn:
+        condition: service_healthy
     environment:
       - PUID=1000
       - PGID=1000

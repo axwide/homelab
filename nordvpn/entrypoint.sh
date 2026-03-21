@@ -6,6 +6,12 @@ sleep 5
 # Suppress the analytics prompt
 nordvpn set analytics off
 
+# Enable kill switch and LAN discovery before any tunnel is established
+nordvpn set firewall on
+
+# Allow inbound traffic coming from over the LAN through the firewall
+nordvpn set lan-discovery on
+
 # Login if not already authenticated
 if nordvpn account 2>&1 | grep -q "not logged in"; then
     nordvpn login --token "$NORDVPN_TOKEN"
@@ -14,10 +20,6 @@ fi
 nordvpn connect --group p2p
 nordvpn set meshnet on
 nordvpn meshnet set nickname "homelab-container"
-nordvpn set firewall on
-
-# Allow inbound traffic coming from over the LAN through the firewall
-nordvpn set lan-discovery on
 
 # Monitor nordvpnd and restart if it crashes
 while true; do
